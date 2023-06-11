@@ -1,0 +1,94 @@
+@import "common";
+@import "noteList";
+@import "noteColorList";
+
+// App.jsx
+.main-box {
+    background-color: #fff;
+    overflow: hidden;
+
+    .main-container {
+        height: 100%;
+    }
+
+    @media(max-width: '880px') {
+        position: relative;
+    }
+}
+
+.container {
+    display: flex;
+    height: 100%;
+
+
+    .side-bar {
+        width: 17%;
+        height: 100%;
+
+        .sidebar-wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+
+            .sidebar-title-wrapper {
+                display: flex;
+                align-items: end;
+                justify-content: center;
+            }
+
+            .sidebar-title {
+                color: #000;
+                font-family: 'sans-serif';
+                font-weight: bold;
+                word-wrap: break-word;
+            }
+        }
+    }
+
+    .main-layout {
+        width: 83%;
+        height: 100%;
+
+        .main-layout-wrapper {
+            padding: 0 calc(8px + 1.5625vw); // magic number
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+
+            .search-bar-wrapper {
+                display: flex;
+                align-items: end;
+            }
+        }
+    }
+
+    @media(min-width: '881px') {
+        .note-color-list {
+            height: 90%;
+        }
+    }
+
+    @media(max-width: '880px') {
+        flex-direction: column;
+        overflow: auto;
+
+        .side-bar {
+            width: 100%;
+            height: 10%;
+        }
+    
+        .main-layout {
+            width: 100%;
+            height: 90%;
+        }
+    }
+}
+
+// SearchBar.jsx
+.search-bar {
+    width: 50%;
+
+    @media(max-width: '880px') {
+        width: 100%;
+    }
+}
