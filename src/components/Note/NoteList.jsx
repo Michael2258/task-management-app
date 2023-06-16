@@ -1,8 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import useNoteList from "../../hooks/Note/useNoteList";
 import { Grid, Pagination, Skeleton, Typography } from "@mui/material";
 import NoteItem from "./NoteItem";
-import moment from "moment";
 import UpdateNoteModal from "./UpdateNoteModal";
 import { LIMIT_PER_PAGE } from "../../constants";
 
@@ -17,11 +16,10 @@ const NoteList = () => {
         handleCreatingNotes,
         setSelectedNote,
         isLoading,
+        handleOpenUpdateModal,
+        isOpenUpdateModal,
+        handleCloseUpdateModal,
     } = useNoteList();
-
-    const [isOpenUpdateModal, setOpenUpdateModal] = useState(false);
-    const handleOpenUpdateModal = () => setOpenUpdateModal(true);
-    const handleCloseUpdateModal = () => setOpenUpdateModal(false);
 
     return (
         <Grid container sx={{ height: "100%" }}>
@@ -30,13 +28,15 @@ const NoteList = () => {
                     Notes
                 </Typography>
 
-                <Pagination
-                    onChange={handlePagination}
-                    className="pagination"
-                    count={Math.ceil(totalNotes / LIMIT_PER_PAGE)}
-                    page={currentPage || 1}
-                    size="large"
-                />
+                {totalNotes && (
+                    <Pagination
+                        onChange={handlePagination}
+                        className="pagination"
+                        count={Math.ceil(totalNotes / LIMIT_PER_PAGE)}
+                        page={currentPage || 1}
+                        size="large"
+                    />
+                )}
             </Grid>
 
             <Grid item xs={12} className="notelist-wrapper">
@@ -48,46 +48,34 @@ const NoteList = () => {
                                 width={210}
                                 height={118}
                             />
-                        ) : (
+                        ) : filterNotes.length || creatingNotes.length ? (
                             <Fragment>
-                                {creatingNotes
-                                    .sort((a, b) =>
-                                        moment(b.createdAt.toDate()).diff(
-                                            moment(a.createdAt.toDate())
-                                        )
-                                    )
-                                    .map((creatingNote, idx) => (
-                                        <NoteItem
-                                            handleCreatingNotes={
-                                                handleCreatingNotes
-                                            }
-                                            key={idx}
-                                            note={creatingNote}
-                                            setSelectedNote={setSelectedNote}
-                                            handleOpenUpdateModal={
-                                                handleOpenUpdateModal
-                                            }
-                                            onDelete={handleDeleteNoteList}
-                                        />
-                                    ))}
+                                {creatingNotes.map((creatingNote, idx) => (
+                                    <NoteItem
+                                        handleCreatingNotes={
+                                            handleCreatingNotes
+                                        }
+                                        key={idx}
+                                        note={creatingNote}
+                                        setSelectedNote={setSelectedNote}
+                                        handleOpenUpdateModal={
+                                            handleOpenUpdateModal
+                                        }
+                                        onDelete={handleDeleteNoteList}
+                                    />
+                                ))}
 
-                                {filterNotes
-                                    .sort((a, b) =>
-                                        moment(b.createdAt.toDate()).diff(
-                                            moment(a.createdAt.toDate())
-                                        )
-                                    )
-                                    .map((note, idx) => (
-                                        <NoteItem
-                                            key={idx}
-                                            note={note}
-                                            setSelectedNote={setSelectedNote}
-                                            handleOpenUpdateModal={
-                                                handleOpenUpdateModal
-                                            }
-                                            onDelete={handleDeleteNoteList}
-                                        />
-                                    ))}
+                                {filterNotes.map((note, idx) => (
+                                    <NoteItem
+                                        key={idx}
+                                        note={note}
+                                        setSelectedNote={setSelectedNote}
+                                        handleOpenUpdateModal={
+                                            handleOpenUpdateModal
+                                        }
+                                        onDelete={handleDeleteNoteList}
+                                    />
+                                ))}
 
                                 <div className="pagination-mobile">
                                     <Pagination
@@ -100,6 +88,10 @@ const NoteList = () => {
                                     />
                                 </div>
                             </Fragment>
+                        ) : (
+                            <Typography className="notelist-title" variant="h5">
+                                Empty Note
+                            </Typography>
                         )}
                     </div>
                 </div>

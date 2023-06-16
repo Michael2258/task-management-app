@@ -1,11 +1,13 @@
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import Textarea from "@mui/joy/Textarea";
 import moment from "moment";
-import RoundButton from "../common/RoundButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import StarIcon from "@mui/icons-material/Star";
-import React, { Fragment, useEffect, useState } from "react";
+import RoundButton from "../common/RoundButton";
+import { FORMAT_DATE } from "../../constants";
+import { handleGeneratingKeywordsForSearching } from "../../utils/generateKeywords";
 
 const NoteItem = ({
     note,
@@ -14,11 +16,27 @@ const NoteItem = ({
     setSelectedNote,
     handleOpenUpdateModal,
 }) => {
-    const FORMAT_DATE = "MMM DD, YYYY";
-
     const isCreating = note?.isCreating;
 
     const [creatingContent, setCreatingContent] = useState("");
+
+    const onCreateNote = useCallback(() => {
+        handleCreatingNotes &&
+            isCreating &&
+            handleCreatingNotes({
+                content: creatingContent,
+                createdAt: note?.createdAt,
+                colorId: note?.colorId,
+                isStarred: false,
+                keywords: handleGeneratingKeywordsForSearching(creatingContent),
+            });
+    }, [
+        note?.createdAt,
+        note?.colorId,
+        handleCreatingNotes,
+        isCreating,
+        creatingContent,
+    ]);
 
     useEffect(() => {
         setCreatingContent(note?.content);
@@ -53,16 +71,7 @@ const NoteItem = ({
                     "--Textarea-focusedHighlight": "transparent",
                 }}
                 onChange={(e) => setCreatingContent(e.target.value)}
-                onBlur={() => {
-                    handleCreatingNotes &&
-                        isCreating &&
-                        handleCreatingNotes({
-                            content: creatingContent,
-                            createdAt: note?.createdAt,
-                            colorId: note?.colorId,
-                            isStarred: false,
-                        });
-                }}
+                onBlur={onCreateNote}
             />
 
             {!isCreating ? (

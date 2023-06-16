@@ -21,4 +21,6 @@ export const NOTE_COLOR = {
     }
 }
 
-export const LIMIT_PER_PAGE = 10;
+export const LIMIT_PER_PAGE = 12;
+
+export const FORMAT_DATE = "MMM DD, YYYY";

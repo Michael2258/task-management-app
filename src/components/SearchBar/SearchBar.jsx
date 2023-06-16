@@ -13,7 +13,7 @@ const SearchBar = () => {
                 sx={{
                     "&.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
                         {
-                            borderColor: "#fff",
+                            borderColor: "transparent",
                         },
                     paddingLeft: 0,
                     fontSize: "1.8rem",

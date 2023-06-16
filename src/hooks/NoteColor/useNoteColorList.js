@@ -4,8 +4,9 @@ import { NoteContext } from "../../context/NoteContext";
 import { Timestamp } from "firebase/firestore";
 
 const useNoteColorList = () => {
+    const { isShowingNoteColorList, setShowingNoteColorList } = useContext(NoteContext);
+    
     const [noteColors, setNoteColors] = useState([]);
-    const [isShowingNoteColorList, setShowingNoteColorList] = useState(false);
 
     const { setNotes, isLoading } = useContext(NoteContext);
 

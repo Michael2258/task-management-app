@@ -45,6 +45,7 @@ const UpdateNoteModal = ({ handleClose, open }) => {
                         fontSize: "1.6em",
                     }}
                     onChange={(e) => setUpdatingContent(e.target.value)}
+                    className="update-textarea"
                 />
 
                 <FormGroup>
