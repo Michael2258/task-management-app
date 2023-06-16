@@ -1,7 +1,5 @@
-import { collection, getDocs, query, orderBy, limit, updateDoc, deleteDoc, doc, getCountFromServer, getDoc, startAfter, addDoc, where, endBefore } from "firebase/firestore";
+import { collection, updateDoc, deleteDoc, doc, getCountFromServer, addDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
-import { noteColorRef } from "./noteColorAPI";
-import { LIMIT_PER_PAGE } from "../constants";
 
 const NOTE_STRING = "notes";
 

@@ -4,7 +4,7 @@ import { fetchUpdateNote } from "../../apiClients/noteAPI";
 import { Timestamp } from "firebase/firestore";
 
 const useUpdateNoteModal = (handleClose) => {
-    const { selectedNote, setSelectedNote } = useContext(NoteContext);
+    const { selectedNote, setSelectedNote, setCurrentPage } = useContext(NoteContext);
 
     const [updatingContent, setUpdatingContent] = useState("");
     const [isStarred, setIsStarred] = useState(false);
@@ -27,6 +27,7 @@ const useUpdateNoteModal = (handleClose) => {
         const result = await fetchUpdateNote(selectedNote?.id, body);
 
         if (result) {
+            setCurrentPage(1);
             handleCloseUpdateNoteModal();
         };
     }
