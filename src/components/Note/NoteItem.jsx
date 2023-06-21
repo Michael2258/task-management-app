@@ -88,7 +88,7 @@ const NoteItem = ({
                         <div className="note-item-edit-btn">
                             <RoundButton
                                 IconElement={EditIcon}
-                                size="medium"
+                                size="small"
                                 iconSize="small"
                                 onClick={() => {
                                     setSelectedNote(note);
@@ -101,7 +101,7 @@ const NoteItem = ({
                             <RoundButton
                                 IconElement={DeleteIcon}
                                 onClick={() => onDelete(note?.id)}
-                                size="medium"
+                                size="small"
                                 iconSize="small"
                             />
                         </div>

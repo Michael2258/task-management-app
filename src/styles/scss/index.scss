@@ -58,6 +58,14 @@
             .search-bar-wrapper {
                 display: flex;
                 align-items: end;
+                justify-content: space-between;
+
+                .switch-theme-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                }
             }
         }
     }
@@ -90,5 +98,21 @@
 
     @media(max-width: '880px') {
         width: 100%;
+    }
+}
+
+// ===========================================
+// DARK THEME
+#dark {
+    .main-box {
+        background-color: #757575;
+    }
+
+    p, h3, h4, textarea, span, button {
+        color: #fff;
+    }
+
+    .update-textarea > textarea {
+        color: red;
     }
 }
